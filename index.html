@@ -10,6 +10,7 @@
     integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
   <link rel="stylesheet" href="css/style.css">
   <script src="jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js" integrity="sha256-H9jAz//QLkDOy/nzE9G4aYijQtkLt9FvGmdUTwBk6gs=" crossorigin="anonymous"></script>
   <script src="data_generator.js"></script>
 
 </head>
@@ -20,7 +21,7 @@
   </header>
   <br>
   <!-- Form -->
-  <form>
+  <form class = "form" id="inputForm" onsubmit="return false;" method="POST">
     <div class="form-group row">
       <label for="staticEmail" class="col-sm-2 col-form-label">Name</label>
       <div class="col-sm-10">
@@ -30,36 +31,21 @@
     <div class="form-group row">
       <label for="inputPassword" class="col-sm-2 col-form-label">Message</label>
       <div class="col-sm-10">
-        <textarea rows="5" name="message" placeholder="What's on your mind?" class="form-control"></textarea>
+        <textarea rows="5" name="message" class="form-control" id= "inputMsg" placeholder="What's on your mind?"></textarea>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary" onclick="post()">Submit</button>
   </form>
+  <div class = "button"> <button type="button" class="btn btn-success">Show / Hide All Tweet</button></div>
   <br>
   <br>
   <br>
+  <div class="text_block"><h2>Latest Tweet</h2></div>
   <div class="messages"></div>
+  <div id="timeline">
+    <h2 id="timeline-title" class="hidden">User Timeline</h2>
+  </div>
 
-  <script>
-    $(document).ready(function () {
-      var $messages = $('.messages');
-      $messages.html('');
-      var index = streams.home.length - 1;
-      while (index >= 0) {
-        var tweet = streams.home[index];
-        var $tweet = $('<div></div>');
-
-        //populaes the random tweet message
-        $tweet.text(`@${tweet.user} : ${tweet.message}`);
-        //adds the tweet to the body of the html
-        $tweet.appendTo($messages);
-        index--;
-      }
-
-    });
-  </script>
-
-
-
+<script src="script.js"></script>
 </body>
 
 </html>

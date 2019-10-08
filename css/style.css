@@ -24,6 +24,7 @@ h1{
 
 }
 
+
 .btn-primary {
   padding: 15px 40px 15px 40px;
   background-color: #34c6d3;
@@ -41,4 +42,23 @@ form .form-control {
 
 .form-group {
   width: 90%;
+}
+
+.button {
+  text-align: left;
+  margin-left: 240px;
+}
+
+.btn-success{
+  width:20%;
+}
+
+.user-name {
+  cursor: pointer;
+  color: rgb(29, 161, 242);
+  font-weight: 500;
+}
+
+.created-time {
+  color:  #595959;
 }
