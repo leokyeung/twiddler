@@ -11,7 +11,7 @@ $(document).ready(function () {
       var $tweet = $('<div></div>');
 
       //populaes the random tweet message
-      $tweet.html("<span class = user-name>@" + tweet.user + "</span>: " + tweet.message + " -  <span class = created-time > Posted at "+ tweet.created_at + "</span>");
+      $tweet.html('<span class = user-name>@' + tweet.user + "</span>: " + tweet.message + " -  <span class = created-time > Posted at "+ tweet.created_at + "</span>");
 
       //adds the tweet to the body of the html
       $tweet.appendTo($messages);
@@ -19,16 +19,38 @@ $(document).ready(function () {
     }
   }
 
-  setInterval(generateNewTweet, 1000);
+  setInterval(generateNewTweet, 1500);
 
   //button which shows and hides the Tweet Stream
   $(".btn-success").click(function(){
     $(".text_block,.messages").toggle();
   });
 
-  $(".user-name").click(function(){
-    $(".text_block").toggle();
-  });
+  // click to show shawndrost timeline
+  $('.messages').on('click', '.user-name', function(event) {
+    event.preventDefault();
+
+    var $messages = $('.messages');
+    var $usertimeline = $('.user-timeline');
+    $messages.html('');
+    var index = streams.home.length - 1;
+
+    while(index >= 0){
+      var tweet = streams.home[index];
+      var $tweet = $('<div></div>');
+      if(tweet.user === 'shawndrost') {
+
+        $tweet.html("<span class = user-name>@" + tweet.user + "</span>: " + tweet.message + " -  <span class = created-time > Posted at "+ tweet.created_at + "</span>");
+
+        $tweet.appendTo($usertimeline);
+        $(".text_block,.messages").hide();
+        $("#timeline-title").removeClass("hidden");
+      }
+      index --;
+    }
+   });
+
+
 
 });
 
@@ -79,28 +101,3 @@ function filterUserTweet(user) {
   filterBefore = true;
 }
 
-$(function () { // -----------v-----scoped to the function
-  $.each(streams.users, function(user, tweets) {
-    var name = $('.' + user);
-
-    $(name).click(function () {
-      $history.html('<div class=history></div>');
-      $(name).toggle(true);
-      var userTweets = streams.users[user];
-      var $username = $('<span class=\" timelineTitle username\">' + '@' + user + '</span>');
-      $username.appendTo($history);
-
-      for (var i = 0; i < tweets.length; i++) {
-        var $tweet = $('<div class="timelinetweet tweet"></div>');
-        var $tweetMessage = $('<span class=\"message tweet\"></span>');
-        var $tweetDate = $('<span class=\"date tweet\"></span>');
-        $tweetMessage.text(tweets[i].message);
-        var date = tweets[i].created_at;
-        $tweetDate.text(date.getDay()+'-'+date.getMonth()+'-'+date.getFullYear());
-        $tweetMessage.appendTo($tweet);
-        $tweetDate.appendTo($tweet);
-        $tweet.appendTo($history);
-      }
-    });
-  });
-});
