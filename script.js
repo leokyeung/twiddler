@@ -8,48 +8,42 @@ $(document).ready(function () {
     var index = streams.home.length - 1;
     while (index >= 0) {
       var tweet = streams.home[index];
-      var $tweet = $('<div></div>');
+      // creating  a div wrapper
+      var $tweet = $("<div></div>");
 
-      //populaes the random tweet message
-      $tweet.html('<span class = user-name>@' + tweet.user + "</span>: " + tweet.message + " -  <span class = created-time > Posted at "+ tweet.created_at + "</span>");
+      //populaes the random tweet message & inserts it into the div wrapper
+      //$tweet.html(`<div class = ${tweet.user}><span class= user-name>@${tweet.user}</span>: ${tweet.message} - <span class = created-time >Posted at ${tweet.created_at}</span></div>`);
+
+      const $user = $(`<div class="user btn btn-link" onclick="loadStream('${tweet.user}')"> @${tweet.user}</div>`);
+      $user.appendTo($tweet);
+
+      const $message = $(`<div class="message"> "${tweet.message}"</div>`);
+      $message.appendTo($tweet);
+
+      const $timestamp = $(`<div class="created-time">${tweet.created_at}</div>`);
+      $timestamp.appendTo($tweet);
 
       //adds the tweet to the body of the html
       $tweet.appendTo($messages);
       index--;
     }
   }
-
-  setInterval(generateNewTweet, 1500);
+  generateNewTweet();
+  // setInterval(generateNewTweet, 1500);
 
   //button which shows and hides the Tweet Stream
-  $(".btn-success").click(function(){
+  $(".btn-success").click(function () {
     $(".text_block,.messages").toggle();
   });
 
   // click to show shawndrost timeline
-  $('.messages').on('click', '.user-name', function(event) {
+  $(".user-name").on('click', function (event) {
     event.preventDefault();
 
-    var $messages = $('.messages');
-    var $usertimeline = $('.user-timeline');
-    $messages.html('');
-    var index = streams.home.length - 1;
 
-    while(index >= 0){
-      var tweet = streams.home[index];
-      var $tweet = $('<div></div>');
-      if(tweet.user === 'shawndrost') {
-
-        $tweet.html("<span class = user-name>@" + tweet.user + "</span>: " + tweet.message + " -  <span class = created-time > Posted at "+ tweet.created_at + "</span>");
-
-        $tweet.appendTo($usertimeline);
-        $(".text_block,.messages").hide();
-        $("#timeline-title").removeClass("hidden");
-      }
-      index --;
-    }
-   });
-
+    $(".text_block,.messages").hide();
+    $("#timeline-title").removeClass("hidden");
+  })
 
 
 });
@@ -100,4 +94,3 @@ function filterUserTweet(user) {
   }
   filterBefore = true;
 }
-
