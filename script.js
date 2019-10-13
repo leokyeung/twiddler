@@ -1,5 +1,4 @@
 let visitor;
-
 $(document).ready(function () {
 
   var generateNewTweet = function () {
@@ -9,18 +8,19 @@ $(document).ready(function () {
     while (index >= 0) {
       var tweet = streams.home[index];
       // creating  a div wrapper
-      var $tweet = $("<div></div>");
+      var $tweet = $('<div class=' + "'"+tweet.user+ ' user'+ "'"+'></div>');
 
       //populaes the random tweet message & inserts it into the div wrapper
-      //$tweet.html(`<div class = ${tweet.user}><span class= user-name>@${tweet.user}</span>: ${tweet.message} - <span class = created-time >Posted at ${tweet.created_at}</span></div>`);
 
-      const $user = $(`<div class="user btn btn-link" onclick="loadStream('${tweet.user}')"> @${tweet.user}</div>`);
+      //$tweet.html(`<div class = ${tweet.user}><span class= user-name>${tweet.user}</span>: ${tweet.message} - <span class = created-time >Posted at ${tweet.created_at}</span></div>`);
+
+      const $user = $(`<div class="btn btn-link">${tweet.user}</div>`);
       $user.appendTo($tweet);
 
       const $message = $(`<div class="message"> "${tweet.message}"</div>`);
       $message.appendTo($tweet);
 
-      const $timestamp = $(`<div class="created-time">${tweet.created_at}</div>`);
+      const $timestamp = $(`<div class="created-time">Posted at ${tweet.created_at}</div>`);
       $timestamp.appendTo($tweet);
 
       //adds the tweet to the body of the html
@@ -28,25 +28,45 @@ $(document).ready(function () {
       index--;
     }
   }
+
   generateNewTweet();
-  // setInterval(generateNewTweet, 1500);
+  //var generate = setInterval(generateNewTweet, 1500);
 
   //button which shows and hides the Tweet Stream
   $(".btn-success").click(function () {
-    $(".text_block,.messages").toggle();
+
+    $(".user").show();
+    $('.text_block').html('Latest Tweet');
+
   });
 
-  // click to show shawndrost timeline
-  $(".user-name").on('click', function (event) {
-    event.preventDefault();
+  $(".user").on("click", function () {
+
+    var name = $(this).text();
+    var name = name.split(" ");
+    //console.log(name[0]);
+     $('.user').not('.' + name[0]).hide();
+     $('.text_block').html(name[0] + '\'s Timeline');
 
 
-    $(".text_block,.messages").hide();
-    $("#timeline-title").removeClass("hidden");
-  })
+
+      //$('.messages:not('.sharksforcheap')').hide(); // hide everything that isn't #myDiv
+      //$('.sharksforcheap').appendTo('.messages');
+
+      // // append this to the other element
+      // $('.sharksforcheap').appendTo(".user-timeline");
+      // // then empty the exisiting container
+      // $(".messages").hide();
+      // $(".text_block").hide();
+      // $("#timeline-title").text("sharksforcheap Timeline")
+
+
+  });
+
 
 
 });
+
 
 //Post function, grabs the input name and message and calls write Tweet Function
 function post() {
@@ -59,8 +79,10 @@ function post() {
   writeTweet(message);
 }
 
-// utility function for letting students add "write a tweet" functionality
+//utility function for letting students add "write a tweet" functionality
+
 var writeTweet = function (message) {
+
   var tweet = {};
   var d = new Date();
   var n = d.toLocaleTimeString();
@@ -71,26 +93,6 @@ var writeTweet = function (message) {
   tweet.user = visitor;
   tweet.message = message;
   tweet.created_at = n;
+  console.log(tweet);
   addTweet(tweet);
 };
-
-function filterUserTweet(user) {
-  $(".history").html("");
-  $(".showTweetButton").prop("disabled", false);
-  var userTweet = tweetFeed.filter(tweet => tweet.user === user);
-  var index = userTweet.length - 1;
-
-  while (index >= 0) {
-    var $filerTweet = $("<div class=userTweet></div>");
-
-    $filerTweet.text(
-      "@" + userTweet[index].user + ": " + userTweet[index].message
-    );
-
-
-    $filerTweet.appendTo($(".history"));
-    $filterTweetTime.appendTo($(".history"));
-    index -= 1;
-  }
-  filterBefore = true;
-}

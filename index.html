@@ -25,7 +25,7 @@
     <div class="form-group row">
       <label for="staticEmail" class="col-sm-2 col-form-label">Name</label>
       <div class="col-sm-10">
-        <input type="name" class="form-control" id="inputName" placeholder="Enter your name">
+        <input type="name" class="form-control" id="inputName" placeholder="Enter your name" type="text">
       </div>
     </div>
     <div class="form-group row">
@@ -35,20 +35,19 @@
       </div>
       <button type="submit" class="btn btn-primary" onclick="post()">Submit</button>
   </form>
-  <div class = "button"> <button type="button" class="btn btn-success">Show / Hide All Tweet</button></div>
+  <div class = "button"> <button type="button" class="btn btn-success">View All Tweet</button></div>
   <br>
   <br>
   <br>
   <!-- Tweet Stream -->
-  <div class="text_block"><h2>Latest Tweet</h2></div>
+  <div class="text_block">Latest Tweet</div>
   <div class="messages"></div>
   <!-- Display user's timeline -->
   <div id="timeline">
-    <h2 id="timeline-title" class="hidden">User Timeline</h2>
+    <h2 id="timeline-title"></h2>
     <div class = "user-timeline"></div>
   </div>
 
 <script src="script.js"></script>
 </body>
-
 </html>
