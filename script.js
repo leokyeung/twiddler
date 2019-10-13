@@ -12,7 +12,7 @@ $(document).ready(function () {
 
       //populaes the random tweet message & inserts it into the div wrapper
 
-      //$tweet.html(`<div class = ${tweet.user}><span class= user-name>${tweet.user}</span>: ${tweet.message} - <span class = created-time >Posted at ${tweet.created_at}</span></div>`);
+      //$tweet.html(`<div><span class= user-name>${tweet.user}</span>: ${tweet.message} - <span class = created-time >Posted at ${tweet.created_at}</span></div>`);
 
       const $user = $(`<div class="btn btn-link">${tweet.user}</div>`);
       $user.appendTo($tweet);
@@ -34,18 +34,22 @@ $(document).ready(function () {
 
   //button which shows and hides the Tweet Stream
   $(".btn-success").click(function () {
-
     $(".user").show();
     $('.text_block').html('Latest Tweet');
+  });
 
+  //button to generate new tweet
+  $(".btn-warning").click(function () {
+    generateNewTweet();
   });
 
   $(".user").on("click", function () {
 
     var name = $(this).text();
+
     var name = name.split(" ");
-    //console.log(name[0]);
-     $('.user').not('.' + name[0]).hide();
+    var clickedUser = "." + name[0];
+     $('.user').not(clickedUser).hide();
      $('.text_block').html(name[0] + '\'s Timeline');
 
 

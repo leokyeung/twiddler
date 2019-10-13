@@ -53,6 +53,11 @@ form .form-control {
   width:20%;
 }
 
+.btn-warning{
+  width:30%;
+  margin-top: 40px;
+}
+
 .user-name {
   cursor: pointer;
   color: rgb(29, 161, 242);
